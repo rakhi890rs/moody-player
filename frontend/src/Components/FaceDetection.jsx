@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
+import "./FaceDetection.css";
 
 function FaceDetection() {
   const videoRef = useRef(null);
@@ -45,37 +46,12 @@ function FaceDetection() {
   };
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h2>Real-Time Mood Detector</h2>
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        width="720"
-        height="560"
-        style={{ borderRadius: "10px" }}
-      />
+    <div className="mood-element">
+      <video ref={videoRef} autoPlay muted className="user-video-feed" />
       <br />
-      <button
-        onClick={detectMood}
-        style={{
-          marginTop: "15px",
-          padding: "10px 20px",
-          fontSize: "16px",
-          backgroundColor: "#2563eb",
-          color: "white",
-          border: "none",
-          borderRadius: "8px",
-          cursor: "pointer",
-        }}
-      >
-        Detect Mood
-      </button>
-      {expression && (
-        <p style={{ marginTop: "10px", fontSize: "18px" }}>
-          Detected Mood: <strong>{expression}</strong>
-        </p>
-      )}
+      <button onClick={detectMood} className="detect-button">
+        Detect Mood</button>
+     
     </div>
   );
 }
