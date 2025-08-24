@@ -1,8 +1,5 @@
-import ImageKit from "imagekit";
-
-// or
-
 var ImageKit = require("imagekit");
+var mongoose = require("mongoose");
 
 var imagekit = new ImageKit({
     publicKey : process.env.IMAGEKIT_PUBLIC_KEY,
@@ -11,19 +8,22 @@ var imagekit = new ImageKit({
 });
 
 function uploadFile(file){
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
+        // ✅ Proper ObjectId usage
+        const uniqueId = new mongoose.Types.ObjectId().toString();
+
         imagekit.upload({
-            file:file.buffer,
-            fileName:"hello"
-        },(error,result)=>{
+            file: file.buffer,
+            fileName: uniqueId + "_" + file.originalname,
+            folder: "audio"
+        }, (error, result) => {
             if(error){
                 reject(error);
-            }else{
+            } else {
                 resolve(result);
             }
-        })
-    })
+        });
+    });
 }
-
 
 module.exports = uploadFile;
