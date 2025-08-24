@@ -6,7 +6,7 @@ Moody Player is an interactive web application that detects your facial expressi
 
 ## 🔍 Overview
 
-The app uses **face-api.js** to detect moods like happy, sad, angry, surprised, or neutral through your webcam. Based on the detected mood, it dynamically selects songs that suit your emotional state. The UI is built with **React** and styled using **Tailwind CSS**, providing a responsive and smooth user experience.
+The app uses **face-api.js** to detect moods like happy, sad, angry, surprised, or neutral through your webcam. Based on the detected mood, it dynamically selects songs that suit your emotional state. The UI is built with **React** and styled using **CSS**, providing a responsive and smooth user experience.
 
 ---
 
