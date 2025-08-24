@@ -16,22 +16,53 @@ const MoodSongs = ({ songs }) => {
   };
 
   return (
-    <div className='mood-songs'>
-      <h2>Recommended Songs</h2>
-      {songs.length === 0 && <p className="no-songs">No songs to display</p>}
-      <div className="songs-list">
+    <div className='mood-songs-container'>
+      <div className="songs-header">
+        <h2>Recommended Tracks</h2>
+        <div className="songs-count">
+          {songs.length} {songs.length === 1 ? 'track' : 'tracks'} found
+        </div>
+      </div>
+      
+      {songs.length === 0 && (
+        <div className="no-songs">
+          <div className="no-songs-icon">🎵</div>
+          <p>No songs to display</p>
+          <span>Try detecting your mood first</span>
+        </div>
+      )}
+      
+      <div className="songs-grid">
         {songs.map((song, index) => (
           <div
-            className={`song-card ${currentSong?.audio === song.audio ? 'playing' : ''}`}
+            className={`song-item ${currentSong?.audio === song.audio ? 'playing' : ''}`}
             key={index}
           >
-            <div className='song-info'>
-              <h3 className='song-title' title={song.title}>{song.title}</h3>
-              <p className='song-artist' title={song.artist}>{song.artist}</p>
+            <div className="song-content">
+              <div className='song-details'>
+                <h3 className='song-title' title={song.title}>{song.title}</h3>
+                <p className='song-artist' title={song.artist}>{song.artist}</p>
+              </div>
+              
+              <button 
+                className="play-btn" 
+                onClick={() => playSong(song)}
+                aria-label={currentSong?.audio === song.audio && !audioRef.current?.paused ? 'Pause' : 'Play'}
+              >
+                {currentSong?.audio === song.audio && !audioRef.current?.paused ? '⏸️' : '▶️'}
+              </button>
             </div>
-            <div className="play-button" onClick={() => playSong(song)}>
-              {currentSong?.audio === song.audio && !audioRef.current?.paused ? '⏸️' : '▶️'}
-            </div>
+            
+            {currentSong?.audio === song.audio && (
+              <div className="now-playing-indicator">
+                <div className="audio-wave">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
