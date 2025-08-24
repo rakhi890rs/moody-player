@@ -1,22 +1,114 @@
-.mood-element{
+/* Container */
+.mood-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  min-height: 100vh;
+  transition: background-color 0.5s ease;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Mood-based background colors */
+.mood-happy {
+  background-color: #fff9c4;
+}
+.mood-sad {
+  background-color: #90caf9;
+}
+.mood-angry {
+  background-color: #ef9a9a;
+}
+.mood-surprised {
+  background-color: #ffe082;
+}
+.mood-neutral {
+  background-color: #e0e0e0;
+}
+
+/* Video card */
+.video-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+/* Video feed */
+.user-video-feed {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 4px solid #ffffffaa;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Detect button */
+.detect-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+.detect-button:hover {
+  background-color: #43a047;
+}
+.detect-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Mood display */
+.mood-display {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: fadeIn 0.8s ease-in;
+}
+
+/* Mood emoji */
+.mood-emoji {
+  font-size: 2.5rem;
+  animation: pulse 1s infinite;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .user-video-feed {
+    width: 180px;
+    height: 180px;
+  }
+  .detect-button {
     width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    justify-content:center;
-    padding: 4rem;
-}
-
-.mood-element button{
-    padding: 0.7rem 1 rem;
-    border-radius: 0.5rem;
-    border: none;
-    background-color: #2c2c2c;
-    color: aliceblue;
-}
-
-.user-video-feed{
-    width: 20rem;
-    aspect-ratio: 16/9;
-    border-radius: 1rem;
+  }
+  .mood-display {
+    flex-direction: column;
+    font-size: 1.2rem;
+  }
+  .mood-emoji {
+    font-size: 2rem;
+  }
 }

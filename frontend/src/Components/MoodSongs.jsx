@@ -1,43 +1,44 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react';
 import './MoodSongs.css';
 
-const MoodSongs = () => {
-    const [Songs,setSongs]= useState([
-      {
-        title:"test_title",
-        artist:"test_artist",
-        url:"test_url",
-      },
-      {
-        title:"test_title",
-        artist:"test_artist",
-        url:"test_url",
-      },
-      {
-        title:"test_title",
-        artist:"test_artist",
-        url:"test_url",
-      },
-    ])
+const MoodSongs = ({ songs }) => {
+  const [currentSong, setCurrentSong] = useState(null);
+  const audioRef = useRef(null);
+
+  const playSong = (song) => {
+    if (currentSong?.audio === song.audio) {
+      if (audioRef.current.paused) audioRef.current.play();
+      else audioRef.current.pause();
+    } else {
+      setCurrentSong(song);
+      setTimeout(() => audioRef.current.play(), 100);
+    }
+  };
+
   return (
-  <div className='mood-songs'>
-    <h2>Recommended Songs</h2>
-
-    {Songs.map((song, index) => (
-      <div className='song' key={index}>
-        <div className='title'>
-          <h3>{song.title}</h3>
-          <p>{song.artist}</p>
-        </div>
-
-        <div className="play-pause-button">
-          <i className="ri-pause-line"></i>
-          <i className="ri-play-circle-fill"></i>
-        </div>
+    <div className='mood-songs'>
+      <h2>Recommended Songs</h2>
+      {songs.length === 0 && <p className="no-songs">No songs to display</p>}
+      <div className="songs-list">
+        {songs.map((song, index) => (
+          <div
+            className={`song-card ${currentSong?.audio === song.audio ? 'playing' : ''}`}
+            key={index}
+          >
+            <div className='song-info'>
+              <h3 className='song-title' title={song.title}>{song.title}</h3>
+              <p className='song-artist' title={song.artist}>{song.artist}</p>
+            </div>
+            <div className="play-button" onClick={() => playSong(song)}>
+              {currentSong?.audio === song.audio && !audioRef.current?.paused ? '⏸️' : '▶️'}
+            </div>
+          </div>
+        ))}
       </div>
-    ))}
-  </div>
-)
-}
+
+      {currentSong && <audio ref={audioRef} src={currentSong.audio} />}
+    </div>
+  );
+};
 
 export default MoodSongs;
